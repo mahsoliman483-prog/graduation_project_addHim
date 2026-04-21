@@ -1,0 +1,62 @@
+;
+; SecAI_Driver.inf
+;
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = System ; TODO: specify appropriate Class
+ClassGuid   = {4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider    = %ManufacturerName%
+CatalogFile = SecAI_Driver.cat
+DriverVer   = ; TODO: set DriverVer in stampinf property pages
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+SecAI_Driver.sys = 1,,
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName% = Standard,NT$ARCH$.10.0...16299 ; %13% support introduced in build 16299
+
+[Standard.NT$ARCH$.10.0...16299]
+%SecAI_Driver.DeviceDesc% = SecAI_Driver_Device, Root\SecAI_Driver ; TODO: edit hw-id
+
+[SecAI_Driver_Device.NT]
+CopyFiles = File_Copy
+
+[File_Copy]
+SecAI_Driver.sys
+
+;-------------- Service installation
+[SecAI_Driver_Device.NT.Services]
+AddService = SecAI_Driver,%SPSVCINST_ASSOCSERVICE%, SecAI_Driver_Service_Inst
+
+; -------------- SecAI_Driver driver install sections
+[SecAI_Driver_Service_Inst]
+DisplayName    = %SecAI_Driver.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %13%\SecAI_Driver.sys
+
+[SecAI_Driver_Device.NT.Wdf]
+KmdfService = SecAI_Driver, SecAI_Driver_wdfsect
+
+[SecAI_Driver_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE = 0x00000002
+ManufacturerName = "<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "SecAI_Driver Installation Disk"
+SecAI_Driver.DeviceDesc = "SecAI_Driver Device"
+SecAI_Driver.SVCDESC = "SecAI_Driver Service"

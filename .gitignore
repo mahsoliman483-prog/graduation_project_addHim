@@ -1,0 +1,33 @@
+# Virtual Environments (The #1 cause of slow uploads)
+venv/
+env/
+.env
+.venv/
+
+# Python Cache (Useless compiled files)
+__pycache__/
+*.py[cod]
+
+# IDE Settings (No one needs your local VS Code settings)
+.vscode/
+.idea/
+
+# Large AI Models (Upload these to Google Drive/HuggingFace, not GitHub)
+*.h5
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# OS generated files
+.DS_Store
+Thumbs.db
+.vs/
+
+x64/
+Debug/
+Release/
+ARM64/
+*.pdb
+*.ilk
+*.obj
