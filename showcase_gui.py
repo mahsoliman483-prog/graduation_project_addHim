@@ -39,7 +39,7 @@ except ImportError as _him_err:
     _him_err_msg   = str(_him_err)
 
 # ── Model path ─────────────────────────────────────────────────────────────────
-MODEL_PATH = os.path.join(_ROOT, "models", "xgboost/xgboost_model.pkl")
+MODEL_PATH = os.path.join(_ROOT, "src", "models", "xgboost", "xgboost_model.pkl")
 
 logger = logging.getLogger(__name__)
 
